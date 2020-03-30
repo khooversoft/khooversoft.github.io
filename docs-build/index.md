@@ -18,6 +18,7 @@ Examples of applications...
 
 - Development tools for build and executing multiple processes / systems for debugging, performance stress testing, etc...
 - Running release processes and integration testing in DevOps build servers.
+- Run as a service - listen for file modifying events, HTTP calls, etc..., and executes a specific pipeline when a file is changed.
 
 
 ---------------------

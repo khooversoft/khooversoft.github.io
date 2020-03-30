@@ -9,16 +9,18 @@ Examples of applications...
 - Development tools for build and executing multiple processes / systems for debugging, performance stress testing, etc...
 - Running release processes and integration testing in DevOps build servers.
   - Can be used with MSTest, nUnit, xUnit, scripts
-- Using NuGet package to embedded a workflow or set of workflows into a micro service or command line interfaces.
 - Run as a service - listen for file modifying events, HTTP calls, etc..., and executes a specific pipeline when a file is changed.
-- Run in a container in a micro service.
 
 
-#### Goals:
+#### Goals / Strategy:
 - Easier to develop then PowerShell scripts
 - Functional language style (DSL)
 - Extensible through PowerShell or .NET Core assemblies
 - Work with Azure and AWS
+- Hosting environments
+  - .NET Core (NuGet)
+  - Containers
+  - Azure App Services / Functions    
 
 
 #### Pipeline
