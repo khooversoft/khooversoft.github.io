@@ -31,3 +31,9 @@ capabilities.  A reasonable queue system right?
 The goal of this project is to make node to node(s) communication as simple as sending a message,
 with all the tools to work with messages asynchronously.  Like simple networks, each node corporates as part of the network
 of nodes.
+
+--------
+
+## Performance
+I wanted to see how the latest C# feature "switch expression" performs given it add a lot of functional programming
+capability.  I was surprised how fast it was.

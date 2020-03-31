@@ -6,3 +6,9 @@
 
 - name: Blog Technology
   href: blog-tech.md
+
+- name: Performance
+  href: Performance/Performance.md
+  items:
+    - name: "C# Switch Expression Performance"
+      href: Performance/fizzbuzz-performance.md

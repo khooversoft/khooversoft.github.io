@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Performance for Rule Implementation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Performance for Rule Implementation ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-expand-lg navbar-light ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" width="70" style="margin: 5px" class="svg-custom" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="performance-for-rule-implementation">Performance for Rule Implementation</h1>
+
+<p>One of the new features in C# 8.0 is the switch expression.  I have been using most of the new features
+but I like this one the best.  This new C# feature was taken from F# or functional programming.</p>
+<p>If you have not used this feature, see
+<strong><a href="https://github.com/dotnet/BenchmarkDotNet" target="_blank">C# 8.0 Switch Expression</a></strong>
+for more details.</p>
+<p>I was introduced to a kind of programming / test driven development exercise where a set of business rules are implemented
+and test cases were written for. I was looking for a rule based logic pattens that I can used to compare with switch expression
+and FizzBuzz seamed to fit.</p>
+<p>FizzBuzz References...</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Fizz_buzz">Wikipedia</a></li>
+<li><a href="https://www.tomdalling.com/blog/software-design/fizzbuzz-in-too-much-detail/">Tom Dalling</a></li>
+<li><a href="https://wiki.c2.com/?FizzBuzzTest">wiki.c2</a></li>
+</ul>
+<hr>
+<h4 id="business-rules">Business Rules</h4>
+<p>FizzBuzz is a simple function that returns a specific value based an input after a set of rules have been evaluated.</p>
+<ul>
+<li>if evenly divisible by 3 return &quot;Fizz&quot;</li>
+<li>if evenly divisible by 5 return &quot;Buzz&quot;</li>
+<li>if evenly divisible by 3 or 5 return &quot;FizzBuzz&quot;</li>
+<li>If 0 or any other value return this number as string</li>
+</ul>
+<h4 id="coding-strategies">Coding Strategies</h4>
+<p>Each of the below 6 strategies were tested.</p>
+<ol>
+<li>If/else if logic</li>
+<li>The new C# 8.0 &quot;switch expression&quot;, pattern matching (&quot;functional&quot; programming)</li>
+<li>A chain of handler, one handler for each rule, sometimes called chain of strategy</li>
+<li>Code as data, lambda used for each rule</li>
+<li>Code as data with Linq, lambda used for each rule</li>
+</ol>
+<pre><code>    The code is in this git repo.
+</code></pre>
+<hr>
+<h3 id="results">Results</h3>
+<p>BenchmarkDotNet was configured to track performance and memory and the following is the best 1 out of 3 runs.
+The delta between each run was very small.</p>
+<p>It appears that switch is just as fast as pure if/else logic, which was a little bit of a surprise, pleasant one.</p>
+<ul>
+<li>If/Else and Switch are basically the same</li>
+<li>Chain and Linq have the biggest error rates</li>
+<li>Lambda and chain of handlers are about the same</li>
+<li>Linq is showing its overhead but the least amount of instructions.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Error</th>
+<th style="text-align: right;">StdDev</th>
+<th style="text-align: right;">Gen 0</th>
+<th style="text-align: right;">Gen 1</th>
+<th style="text-align: right;">Gen 2</th>
+<th style="text-align: right;">Allocated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>If/Else</td>
+<td style="text-align: right;">111.5 ns</td>
+<td style="text-align: right;">0.26 ns</td>
+<td style="text-align: right;">0.25 ns</td>
+<td style="text-align: right;">0.0343</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">216 B</td>
+</tr>
+<tr>
+<td>Switch</td>
+<td style="text-align: right;">111.4 ns</td>
+<td style="text-align: right;">0.68 ns</td>
+<td style="text-align: right;">0.63 ns</td>
+<td style="text-align: right;">0.0343</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">216 B</td>
+</tr>
+<tr>
+<td>Chain</td>
+<td style="text-align: right;">151.7 ns</td>
+<td style="text-align: right;">1.11 ns</td>
+<td style="text-align: right;">0.93 ns</td>
+<td style="text-align: right;">0.0534</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">336 B</td>
+</tr>
+<tr>
+<td>CodeAsDataFor</td>
+<td style="text-align: right;">161.5 ns</td>
+<td style="text-align: right;">0.14 ns</td>
+<td style="text-align: right;">0.12 ns</td>
+<td style="text-align: right;">0.0343</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">216 B</td>
+</tr>
+<tr>
+<td>CodeAsDataLinq</td>
+<td style="text-align: right;">1,135.2 ns</td>
+<td style="text-align: right;">1.60 ns</td>
+<td style="text-align: right;">1.33 ns</td>
+<td style="text-align: right;">0.2651</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">1672 B</td>
+</tr>
+</tbody>
+</table>
+<h6 id="code-size">Code Size</h6>
+<p>Visual Studio 2019 has the ability us some to provide code metrics.  I am most interested in size of code,
+coupling, and inheritance.  All of these test look about the same with regards to coupling and inheritance.
+So this just leaves size of code.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align: right;">Lines of Executable Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>If/Else</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr>
+<td>Switch</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr>
+<td>Chain</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr>
+<td>CodeAsDataFor</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr>
+<td>CodeAsDataLinq</td>
+<td style="text-align: right;">12</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="code">Code</h3>
+<h6 id="ifelse-fastest">If/else (fastest)</h6>
+<pre><code>public string Evaluate(int value)
+{
+    if (value == 0) return value.ToString();
+    else if (value % 3 == 0 &amp;&amp; value % 5 == 0) return &quot;FizzBuzz&quot;;
+    else if (value % 3 == 0) return &quot;Fizz&quot;;
+    else if (value % 5 == 0) return &quot;Buzz&quot;;
+
+    return value.ToString();
+}
+</code></pre>
+<h6 id="c-switch-expressions">C# switch expressions</h6>
+<pre><code>public string Evaluate(int value)
+{
+    return value switch
+    {
+        int v when v == 0 =&gt; value.ToString(),
+        int v when v % 3 == 0 &amp;&amp; v % 5 == 0 =&gt; &quot;FizzBuzz&quot;,
+        int v when v % 3 == 0 =&gt; &quot;Fizz&quot;,
+        int v when v % 5 == 0 =&gt; &quot;Buzz&quot;,
+
+        _ =&gt; value.ToString(),
+    };
+}
+</code></pre>
+<h6 id="chain-of-handlers">Chain of Handlers</h6>
+<pre><code>public interface IFizzBuzzChain
+{
+    string Evaluate(int value);
+}
+
+public class FizzBuzzChain_End : IFizzBuzzChain
+{
+    public FizzBuzzChain_End() { }
+    public string Evaluate(int value) =&gt; value.ToString();
+}
+
+public class FizzBuzzChain_Zero : IFizzBuzzChain
+{
+    private readonly IFizzBuzzChain _next;
+    public FizzBuzzChain_Zero(IFizzBuzzChain next) =&gt; _next = next;
+    public string Evaluate(int value) =&gt; value == 0 ? value.ToString() : _next.Evaluate(value);
+}
+
+public class FizzBuzzChain_Three : IFizzBuzzChain
+{
+    private readonly IFizzBuzzChain _next;
+    public FizzBuzzChain_Three(IFizzBuzzChain next) =&gt; _next = next;
+    public string Evaluate(int value) =&gt; value % 3 == 0 ? &quot;Fizz&quot; : _next.Evaluate(value);
+}
+
+public class FizzBuzzChain_Five : IFizzBuzzChain
+{
+    private readonly IFizzBuzzChain _next;
+    public FizzBuzzChain_Five(IFizzBuzzChain next) =&gt; _next = next;
+    public string Evaluate(int value) =&gt; value % 5 == 0 ? &quot;Buzz&quot; : _next.Evaluate(value);
+}
+
+public class FizzBuzzChain_ThreeFive : IFizzBuzzChain
+{
+    private readonly IFizzBuzzChain _next;
+    public FizzBuzzChain_ThreeFive(IFizzBuzzChain next) =&gt; _next = next;
+    public string Evaluate(int value) =&gt; value % 3 == 0 &amp;&amp; value % 5 == 0 ? &quot;FizzBuzz&quot; : _next.Evaluate(value);
+}
+
+public class FuzzBuzzChain : IFizzBuzzChain
+{
+    private readonly IFizzBuzzChain _next;
+    public FuzzBuzzChain() =&gt; _next = new FizzBuzzChain_Zero(
+            new FizzBuzzChain_ThreeFive(
+                new FizzBuzzChain_Three(
+                    new FizzBuzzChain_Five(
+                        new FizzBuzzChain_End()))));
+    public string Evaluate(int value) =&gt; _next.Evaluate(value);
+}
+</code></pre>
+<h6 id="code-as-data">Code as Data</h6>
+<pre><code>public class FizzBuzzCodeAsData
+{
+    private static Func&lt;int, string&gt;[] _evaulations = new Func&lt;int, string&gt;[]
+    {
+        x =&gt; x == 0 ? x.ToString() : null,
+        x =&gt; x % 3 == 0 &amp;&amp; x % 5 == 0 ? &quot;FizzBuzz&quot; : null,
+        x =&gt; x % 3 == 0 ? &quot;Fizz&quot; : null,
+        x =&gt; x % 5 == 0 ? &quot;Buzz&quot; : null,
+        x =&gt; x.ToString(),
+    };
+
+    public FizzBuzzCodeAsData() { }
+
+    public string Evaluate(int value)
+    {
+        for (int i = 0; i &lt; _evaulations.Length; i++)
+        {
+            string result = _evaulations[i](value);
+            if (result != null) return result;
+        }
+
+        throw new InvalidOperationException(&quot;should not be here&quot;);
+    }
+}
+</code></pre>
+<h6 id="test-function">Test function</h6>
+<p>All the strategies use the same test function.</p>
+<pre><code>public void Test()
+{
+    var testData = new (int value, string expected)[]
+    {
+        (0, &quot;0&quot;),
+        (1, &quot;1&quot;),
+        (3, &quot;Fizz&quot;),
+        (4, &quot;4&quot;),
+        (5, &quot;Buzz&quot;),
+        (15, &quot;FizzBuzz&quot;),
+        (16, &quot;16&quot;),
+    };
+
+    var fizzBuzz = new FuzzBuzzChain();
+
+    foreach (var test in testData)
+    {
+        string result = fizzBuzz.Evaluate(test.value);
+        if (test.expected != result) throw new InvalidOperationException(&quot;Test failed&quot;);
+    }
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/khooversoft/khooversoft.github.io/blob/master/docs-build/articles/Performance/fizzbuzz-performance.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Kelvin Hoover (C) 2020 : Opinions expressed here are my own.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -9,10 +9,10 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "UHrdfq2neu6XiiBD6/sxAA=="
+          "hash": "P97nJ8Ahdga+124bvVilsw=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -29,14 +29,38 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "articles/Performance/Performance.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Performance/Performance.html",
+          "hash": "HKtH4rD/Uoud1CUbGRJ8Dw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Performance/fizzbuzz-performance.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Performance/fizzbuzz-performance.html",
+          "hash": "0Jpa6m28hnESYAMidVUHfQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "articles/blog-tech.md",
       "output": {
         ".html": {
           "relative_path": "articles/blog-tech.html",
-          "hash": "bYOMM0QBmEwGN9duNXPWxQ=="
+          "hash": "9/+CRfM3vwiSHmFObJFYqA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -45,10 +69,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/messagenet.project.html",
-          "hash": "FYmEGA6HS9kPRgw5y90InQ=="
+          "hash": "lbl4GCU5vbalDW6SBuuWSg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -57,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/toc.html",
-          "hash": "moO8SMPSEDooEtC0XpQ8/A=="
+          "hash": "L8hZZQvdWULP4fHlEjOx4g=="
         }
       },
       "is_incremental": false,
@@ -69,10 +93,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/xrun.project.html",
-          "hash": "h/u5oxLh5O2DZcmjDCVH8A=="
+          "hash": "cHH0A+LUYTGvv7Ye+u6qZg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -81,10 +105,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "aehnxVhLcQWDTNdm47glqg=="
+          "hash": "o4HICUX1tCORIHsQySsfhg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -103,19 +127,17 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": false,
-        "details": "Cannot build incrementally because last build info is missing.",
+        "can_incremental": true,
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0,
-        "full_build_reason_code": "NoAvailableBuildCache"
+        "skipped_file_count": 0
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": false,
+          "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 5,
-          "skipped_file_count": 0
+          "total_file_count": 7,
+          "skipped_file_count": 6
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
@@ -128,8 +150,8 @@
     },
     {
       "status": {
-        "can_incremental": false,
-        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
         "incrementalPhase": "postProcessing",
         "total_file_count": 0,
         "skipped_file_count": 0
