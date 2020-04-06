@@ -69,13 +69,13 @@ Visual Studio 2019 has the ability us some to provide code metrics.  I am most i
 coupling, and inheritance.  All of these test look about the same with regards to coupling and inheritance.
 So this just leaves size of code.
 
-|                Method | Lines of Executable Code |
-|---------------------- |-------------------------:|
-|               If/Else |                       14 |
-|                Switch |                       17 |
-|                 Chain |                       45 |
-|         CodeAsDataFor |                       24 |
-|        CodeAsDataLinq |                       12 |
+|                Method | Lines of Executable Code | Percent Increase from Smallest |
+|---------------------- |-------------------------:|------------------------------: |
+|               If/Else |                       14 |                           % 14 |
+|                Switch |                       17 |                           % 29 |
+|                 Chain |                       45 |                           % 73 |
+|         CodeAsDataFor |                       24 |                           % 50 |
+|        CodeAsDataLinq |                       12 |                                |
 
 
 --------------
@@ -94,7 +94,7 @@ public string Evaluate(int value)
 }
 ```
 
-###### C# switch expressions
+###### C# switch expressions (fastest)
 ```
 public string Evaluate(int value)
 {
