@@ -189,28 +189,34 @@ So this just leaves size of code.</p>
 <tr>
 <th>Method</th>
 <th style="text-align: right;">Lines of Executable Code</th>
+<th style="text-align: right;">Percent Increase from Smallest</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>If/Else</td>
 <td style="text-align: right;">14</td>
+<td style="text-align: right;">% 14</td>
 </tr>
 <tr>
 <td>Switch</td>
 <td style="text-align: right;">17</td>
+<td style="text-align: right;">% 29</td>
 </tr>
 <tr>
 <td>Chain</td>
 <td style="text-align: right;">45</td>
+<td style="text-align: right;">% 73</td>
 </tr>
 <tr>
 <td>CodeAsDataFor</td>
 <td style="text-align: right;">24</td>
+<td style="text-align: right;">% 50</td>
 </tr>
 <tr>
 <td>CodeAsDataLinq</td>
 <td style="text-align: right;">12</td>
+<td style="text-align: right;"></td>
 </tr>
 </tbody>
 </table>
@@ -227,7 +233,7 @@ So this just leaves size of code.</p>
     return value.ToString();
 }
 </code></pre>
-<h6 id="c-switch-expressions">C# switch expressions</h6>
+<h6 id="c-switch-expressions-fastest">C# switch expressions (fastest)</h6>
 <pre><code>public string Evaluate(int value)
 {
     return value switch
